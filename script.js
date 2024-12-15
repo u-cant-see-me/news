@@ -1,7 +1,6 @@
  import fetchNews  from "./js/fetchnews.js";  
- import getUserData from './js/fetchuserdata.js'
  import NewsApiParams,{buildQueryString} from './js/newsapiparams.js'
-
+ import getWeather from "./js/fetchWeatherInfo.js"
 
 document.addEventListener('DOMContentLoaded',() => {
 
@@ -24,44 +23,21 @@ document.addEventListener('DOMContentLoaded',() => {
 
     }
 
-    function updateWeatherSection(locationData,weatherData){
+    async function updateWeatherSection(){
         updateDate();
-        location.innerHTML = locationData;
+        const data = await getWeather();
+        const city = data.city;
+        const weatherData = data.main;
+        location.innerHTML = city;
         const temp =  weatherData.main.temp - 273.15; //Kelvin to celsius
         temperature.innerHTML = `${((temp * 9/5) + 32).toFixed(2)}°F / ${temp.toFixed(2)}°C` ;
         wdescription.innerHTML = weatherData.weather[0].description;
         console.log(weatherData.weather[0].description);
     }
 
-    async function getWeather(){
-
-        const data = await getUserData();
-
-        const [latitude,longitude] = data.loc.split(",");
-        const key = "a2847ebdcdfe3330a2ba9240b8998bcd";
-        let url = `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${key}`;
-        
-        try {
-            const weatherApiResponse = await fetch(url);
-            if(weatherApiResponse.ok){
-                const weatherData = await weatherApiResponse.json();
-                updateWeatherSection(data.city,weatherData);
-            }
-            else{
-                throw new error("Failed to fetch weather data");
-            }
-        }
-        catch(error){
-            console.error("there was an error",error);          
-        }
-
-    }
-
-
-    
-
     async function updateNewsHeadlines(){
-        const newsArticles = await fetchNews("topheadline")
+        const newsArticles = await fetchNews("topheadline");
+        
         const topNewsContainer = document.querySelector('.other-news');
         const templateNewsCard = document.querySelector('#template-news-card');
         const AsideNewsConatainer = document.querySelector('.latest-news-container');
@@ -70,7 +46,7 @@ document.addEventListener('DOMContentLoaded',() => {
         topNewsContainer.innerHTML = " ";
 
         let newsDisplayed = 0;
-        newsArticles.forEach(article => {
+        newsArticles.articles.forEach(article => {
             if(article.urlToImage == null || newsDisplayed > 12) return;
             newsDisplayed++;
             if(newsDisplayed == 1){
@@ -164,11 +140,11 @@ document.addEventListener('DOMContentLoaded',() => {
         params.domains = "bbc.com,cnn.com";
         params.pageSize = 2;
         const searchString = buildQueryString(params);
-        const articles = await fetchNews("everything",searchString);
+        const newsArticles = await fetchNews("everything",searchString);
 
         const container = document.querySelector('.weekend-reads-container');
 
-        articles.forEach(article => {
+        newsArticles.articles.forEach(article => {
 
             const templateNewsCard = document.querySelector('.card-concept-3');
             const cardClone = templateNewsCard.content.cloneNode(true);         
@@ -192,13 +168,11 @@ document.addEventListener('DOMContentLoaded',() => {
 
 
 
-        console.log(searchString);
-        console.log(articles);
         
     }
 
     
-    getWeather();
+    updateWeatherSection();
     updateNewsHeadlines();
     updateWeekendReads();
 

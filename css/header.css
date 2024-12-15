@@ -106,23 +106,31 @@ body{
 .navbar {
     height: 4em;
     background-color: white; 
-    padding: 10px 20px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Subtle shadow */
     position: sticky;
     top: 0;
     z-index: 1000;
     margin:  2em 0;
+    display: flex;
+    justify-content: center;
+    
     /* border-bottom: 1px solid #ff00cc; */
   }
   
 .nav-items-container {
+    height: 100%;
     display: flex;
     align-items: center;
     list-style: none; 
+    gap: 10px;
+    
 }
   
 .nav-items-container li {
-    margin: 0 2em;
+    padding: 10px 20px;
+    cursor: pointer;
+    border: 1px solid transparent;
+    /* margin: 0 2em; */
 }
   
 .nav-items-container li a {
@@ -133,9 +141,33 @@ body{
     font-family: "Lora", serif;
     transition: color 0.1s ease; 
   }
-  
-.nav-items-container li a:hover {
-    color: #ff00cc ; 
+.nav-items-container li:hover{
+    animation: wrap 1s ease-in-out  ;
+    border: 1px solid #ccc;
+}
+@keyframes wrap {
+    0% {
+        border: 1px solid transparent;
+    }
+    25% {
+        border-bottom: 1px solid #ccc;
+    }
+    50% {
+        border-bottom: 1px solid #ccc;
+        border-right: 1px solid #ccc;
+    }
+    75% {
+        border-bottom: 1px solid #ccc;
+        border-right: 1px solid #ccc;
+        border-top: 1px solid #ccc;
+    }
+    100% {
+        border: 1px solid #ccc; /* All sides are complete at 100% */
+    }
+}
+
+li:hover a {
+    color: #5e5e5e; 
 }
   
   .separator {

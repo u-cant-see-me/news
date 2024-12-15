@@ -14,7 +14,7 @@ export default async function fetchNews(endpoint,query){
         const newsApiResponse = await fetch(url);
         if(newsApiResponse.ok){
             const data = await newsApiResponse.json();            
-            return data.articles;
+            return data;
         }
         else{
             console.error("Data not available");

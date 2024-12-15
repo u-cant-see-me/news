@@ -8,12 +8,19 @@
 body{
     min-height: 100vh;
 }
-/* .page-header{
-
-} */
+.page-header{
+    width: 100%;
+    position: sticky;
+    background-color: white;
+    box-shadow: 0 5px 5px rgba(0, 0, 0, 0.1);
+    top: 0;
+    z-index: 10;
+} 
+ 
 .navigation{
     display: flex;
     flex-direction: row;
+
 }
 .more-option{
     display: flex;
@@ -63,8 +70,9 @@ body{
     height: fit-content;
     margin: 1em 0;
 }
-.search-results{
+#search-results{
     margin: 0 10px;
+    height: 1em;
     font-family: "Lora", serif;
     font-weight: 400;
     font-size: 0.9rem;
@@ -134,7 +142,7 @@ body{
 }
 
 .select:hover{
-    /* box-shadow: 0 5px 5px rgba(0, 0, 0, 0.1); */
+    box-shadow: 0 5px 5px rgba(0, 0, 0, 0.1);
     outline: 1px solid #ccc;
 }
 .select option{
@@ -143,31 +151,55 @@ body{
 #sortBy-field,#language-field{
     margin-top:2em ;
 }
-/* 
+
 #sidebar{
-    height: 85vh;
-    position: absolute;
-    border: 1px solid red;
+    display: none;
+    min-height: 100vh;
+    position: fixed;
+    z-index: 1000;
     top: 15vh;
     left: 0;
-    background-color: #ccc;
-    width: 30%;
+    background-color: #f1f1f1;
+    width: 25%;
+    background-color: black;
+
 }
 #sidebar-container{
     display: flex;
     flex-direction: column;
+    animation: slide 0.5ms ease-in-out;
+
+}
+@keyframes slide{
+    from{
+        width: 0%;
+    }
+    to{
+        width: 30%;
+    }
+    
 }
 #sidebar-container span{
-    background-color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     height: 4em;
     padding: 10px;
-    color: white;
+    cursor: pointer;
     background-color: black;
 }
 #sidebar a{
     color: white;
-} */
- 
+    text-decoration: none;
+}
+#sidebar span:hover{
+    background-color: white;
+    /* box-shadow: ; */
+}
+#sidebar span:hover  a{
+    color: black;
+}
+
 #main-section{
     padding: 0 10rem;
     display: flex;

@@ -1,3 +1,6 @@
+ul li:nth-child(1){
+   outline: 1px solid rgb(110, 110, 110);
+}
 .news-container{
     display: flex;
     flex-direction: column;
@@ -98,9 +101,11 @@ figure img {
     flex-direction: row;
     height: 5em;
     gap: 10px;
-    margin: 2px 0;
+    margin: 10px 0;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 .aside-news-card:hover{
+    transform: translateX(-4px);
     box-shadow: 0 5px 5px rgba(0, 0, 0, 0.1); /* Subtle shadow */
 }
 .aside-news-card:hover #left-border{
@@ -118,6 +123,7 @@ figure img {
         height: 75%;
     }
 }
+
 .time-section{
     flex-grow: 1/9;
     font-family: "Lora", serif;

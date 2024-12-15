@@ -5,9 +5,12 @@ import NewsApiParams,{buildQueryString} from './js/newsapiparams.js'
 document.addEventListener('DOMContentLoaded',()=>{
     //global var
     let params = new NewsApiParams() ;
-    params.q =   new URLSearchParams(window.location.search);
-
+    params.q =   new URLSearchParams(window.location.search).get('query');
+    
     const searchBox = document.querySelector('#search');
+
+    searchBox.value = params.q;
+    updateSearchResults(buildQueryString(params));
 
     function updatePagenation(){
         const pagenation = document.querySelector('.pagenation');
@@ -21,12 +24,15 @@ document.addEventListener('DOMContentLoaded',()=>{
         
         const newsData = await fetchNews("everything",searchString);
         console.log(newsData);
-        
+        if(newsData.totalResults != 0){
+            document.querySelector('#search-results').innerHTML = `Showing ${newsData.totalResults} results for `;
+        }
         const mainContainer = document.querySelector('#search-news-container');
         const templateNewsCard = document.querySelector('#card-concept3');
+        
         mainContainer.innerHTML = "";
 
-        newsData.forEach(article => {
+        newsData.articles.forEach(article => {
             if(article.title === "[Removed]" || article.description === "[Removed]"){
                 return;
             }
@@ -47,7 +53,7 @@ document.addEventListener('DOMContentLoaded',()=>{
         const img = cardClone.querySelector('#img')
         link.href = article.url;
         heading.innerHTML = article.title;
-        descripiton.innerHTML = article.description.slice(0,200)+"..."  ;
+        descripiton.innerHTML =` ${article.description.slice(0,200)}... `;
         author.innerHTML = article.author;
         source.innerHTML = article.source.name;
         img.src = article.urlToImage;
@@ -55,9 +61,13 @@ document.addEventListener('DOMContentLoaded',()=>{
 
     const searcBtn = document.querySelector('#search-btn');
     searcBtn.addEventListener('click',() =>{
-        const querie = searchBox.value ;
-        params.q = querie ;
-        updateSearchResults(buildQueryString(params))
+        if(searchBox.value){
+            const querie = searchBox.value ;
+            params.q = querie ;
+            updateSearchResults(buildQueryString(params))
+
+        }
+
     });
 
     const sortBy = document.querySelector('#sortBy');
@@ -94,8 +104,9 @@ document.addEventListener('DOMContentLoaded',()=>{
     const next = document.querySelector('#next');
     next.addEventListener('click',() => {
         if(params.page < 10){
-            
-            document.querySelector(`#page-${params.page}`).classList.add('pageInactiveColor');
+            const currentPage = document.querySelector(`#page-${params.page}`);      
+            currentPage.style.backgroundColor = "#f0f0f0";
+            currentPage.style.color = "rgb(46, 46, 46)";
 
             params.page = params.page + 1;
             document.querySelector(`#page-${params.page}`).classList.add('pageActiveColor');
@@ -108,7 +119,13 @@ document.addEventListener('DOMContentLoaded',()=>{
     });
     
     document.querySelector('#next').addEventListener('click',() => {
-        document.querySelector('.page-header').scrollIntoView({behavior:"smooth"});
+        document.querySelector('#search-section').scrollIntoView({behavior:"smooth"});
     });
+
+    // document.querySelector('.page').addEventListener('click',(event) => {
+    //     console.log(event.target.value);
+        
+
+    // });
 
 });
