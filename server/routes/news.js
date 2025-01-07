@@ -8,22 +8,18 @@ router.get('/', async (req, res) => {
     const { query = '', endpoint = 'everything' } = req.query;
 
     let url = '';
-    const params = {};
-
+    
     if (endpoint === 'topheadline') {
-        url = 'https://newsapi.org/v2/top-headlines';
-        params.country = 'us';
-        params.apiKey = apiKey;
+        url = `https://newsapi.org/v2/top-headlines?country=us&apiKey=${apiKey}`;
     } else {
-        url = 'https://newsapi.org/v2/everything';
-        params.q = query; 
-        params.apiKey = apiKey;
+        url = `https://newsapi.org/v2/everything?${query}&apiKey=${apiKey}`;
     }
 
     try {
-        const newsApiRes = await axios.get(url, { params });
 
-        res.json(newsApiRes.data); 
+        const newsApiRes = await axios.get(url);
+
+        res.json(newsApiRes.data);
     } catch (error) {
         console.error('Error fetching news:', error.message);
         res.status(500).json({ error: 'Failed to fetch news' });

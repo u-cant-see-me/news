@@ -140,7 +140,7 @@ document.addEventListener('DOMContentLoaded',() => {
         document.querySelector('#W-descripiton').innerHTML = weatherData.weather[0].description;
     }
 
-    async function getNews(parameter = "world"){
+    async function getNews(parameter ){
         const params = new NewsApiParams();
         params.q = parameter.topic;
         if(parameter.domain){
@@ -148,6 +148,8 @@ document.addEventListener('DOMContentLoaded',() => {
         }
         params.pageSize = parameter.page;
         const searchString = buildQueryString(params);
+        console.log(searchString);
+        
         const newsArticles = await fetchNews("everything",searchString);
         let list = [];
         newsArticles.articles.forEach(article => {
@@ -237,7 +239,7 @@ document.addEventListener('DOMContentLoaded',() => {
         
         if (query) {
             // Redirect to search.html with the query as a URL parameter
-            window.location.href = `src/pages/search.html?query=${encodeURIComponent(query)}`;
+            window.location.href = `/src/pages/search.html?query=${encodeURIComponent(query)}`;
         }        
     });
 

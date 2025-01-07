@@ -10,7 +10,6 @@ document.addEventListener('DOMContentLoaded',()=>{
     loadComponent("header2","header",()=>addHamburger());
     loadComponent("sidebar","sidebar");
     
-    //global var
     let params = new NewsApiParams() ;
     params.q =   new URLSearchParams(window.location.search).get('query');
     
