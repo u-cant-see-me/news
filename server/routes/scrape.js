@@ -1,15 +1,12 @@
 import express from 'express';
 import axios from 'axios';
 import * as cheerio from 'cheerio';
-import cors from 'cors'; // Import the cors package
 
-const app = express();
-const port = 3000;
+const router = express.Router();
 
-// Enable CORS for all origins (you can restrict it later to specific origins)
-app.use(cors());
 
-app.get('/scrape', async (req, res) => {
+
+router.get('/', async (req, res) => {
     const { url } = req.query; // Get URL from query parameter
     
     if (!url) {
@@ -36,6 +33,4 @@ app.get('/scrape', async (req, res) => {
     }
 });
 
-app.listen(port, () => {
-    console.log(`Server is running on http://localhost:${port}`);
-});
+export default router;

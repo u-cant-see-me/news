@@ -1,5 +1,52 @@
-.navbar{
-    margin-bottom: 0;
+:root{
+    --box-shadow :0 8px 32px 0 rgba( 0,0,0, 0.37 );
+}
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Lora',serif;
+}
+
+html,body{
+    min-height: 100vh;
+}
+
+.pl-logo{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    font-size: 4em;
+    color: black;
+    position: absolute;
+    z-index: 102;
+}
+.overlay{
+    position: fixed;
+    display: flex;
+    width: 100vw;
+    height: 100vh;
+    z-index: 100;
+    display: flex;
+    pointer-events: none;
+    background-color: transparent;
+
+}
+.box{
+    width: 10vw;
+    height: 100vh;
+    z-index: 101;
+    background-color: white;
+    pointer-events: none;
+}
+#header{
+    z-index: 100000;
+}
+.main-page-container{
+    padding: 2em;   
+    background-color: #202020;
 }
 .weather-section{
     display: grid;
@@ -7,25 +54,321 @@
     grid-template-rows: auto ;
     grid-template-areas: 
     'aside main';
-    height: 100vh;
 }
-.w-news-container{
+.w-details-container{
     grid-area: main;
-    border: 1px solid red;
-    padding: 2em;
+    padding: 0 2em;
 
 }
 .w-aside-container{
     grid-area: aside;
-    border: 1px solid red;
+   
+}
+.temp-info{
+    width: 100%;
+    max-height:300px ;
+    padding: 1em;
+    color: white; 
+    background-color: #202020;
+    box-shadow: 0 8px 32px 0 rgba( 0,0,0, 0.37 );
+}
+.temp-info div{
+    display: flex;
+    justify-content: space-between;
+}
+.location{
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 1rem;
+}
+.city{
+    font-family: 'Poppins',serif;
+    color: gold;
+    font-size: 1.5em;
+    font-weight: 500;
 
 }
-#chart-section{
-    border: 1px solid red;
-    height: 80%;
-    width: 80%;
+#clipper{
+    height: 40px;
+    width: fit-content;
+    overflow: hidden;
 }
-/* #myChart{
-    height: 800px;
-    width: 100vw;
+.city i{
+    font-size: 1.2rem;
+    margin-right: 2px;
+    color:  white;
+
+}
+  
+.country{
+    font-family: 'Poppins',serif;
+    font-weight: 300;
+    margin-left: 1em;
+}
+.toggle{
+    position: relative;
+    display: inline-block;
+    width: 60px;
+    margin: auto 0;
+    height: 34px;
+}
+.toggle input{
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 60%;
+    width: 90%;
+    margin: auto 0;
+    outline: 1px solid rgb(211, 211, 211);
+    -webkit-transition: .4s;
+    transition: .4s;
+}
+  .slider:before {
+    position: absolute;
+    content: "";    
+    height: 100% ;
+    width: 50%;
+    background-color: gold;
+    -webkit-transition: .4s;
+    transition: .4s ;
+}
+/* input:hover  .slider{
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 
+    0 1px 3px rgba(0, 0, 0, 0.06);
 } */
+input:checked + .slider:before {
+    transform: translateX(100%);
+}
+.c,.f{
+    margin: auto 0.3rem;
+}
+figure{
+    width: 50%;
+    height: 50%;
+}
+img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+.temp{
+    display: flex;
+    justify-content: space-between;
+}
+.temperature{
+    font-size: 2em;
+}
+.t-description{
+    font-size: 2em;
+}
+
+
+.temp-graph-container{
+    color: white;
+    padding: 1rem;
+    box-shadow: 0 8px 32px 0 rgba( 0,0,0, 0.37 );
+    margin: 1.5rem 0;
+}
+.temp-graph{
+    width: 100%;
+    margin-top:1em ;
+
+    /* border:  1px solid red; */
+}
+#tempGraph{
+    width: 100%;
+    height: 100%;
+}
+
+.w-details-container .wrapper{
+    display: flex;
+    justify-content: space-between;
+}
+.searchBar{
+    display: flex;
+     width: 50%;
+     margin-bottom: 1em;
+
+}
+.searchBar #search{
+    flex-grow: 7;
+    color: white;
+    font-size: medium;
+    font-family: 'Poppins',serif;
+    background-color: #202020;
+    box-shadow: var(--box-shadow);
+    border-bottom: 1px solid transparent
+
+}
+.searchBar #search:focus{
+    border-bottom: 1px solid gold;
+}
+.searchBar  #search:focus ~ .search-btn{
+    border-bottom: 1px solid gold;
+}
+
+.search-btn{
+    flex-grow: 2;
+    background-color: #202020;
+    border: none;
+
+}
+.search-btn i{
+    color: white;
+    font-size: medium;
+
+}
+.search-btn:hover {
+    cursor: pointer;
+}
+.search-btn:hover i{
+    color: gold;
+}
+.compass{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 300px;
+    padding: 1em;
+    color: white;
+    box-shadow: var(--box-shadow)
+}
+.compass p{
+    font-size: large;
+}
+
+
+@keyframes spin {
+    0%{
+        transform:scale(1) rotate(0deg);
+    }
+	50% {
+		transform:scale(1) rotate(80deg);
+	}
+	100% {
+		transform:scale(1) rotate(-180deg);
+	}
+}
+#map{
+    width: 300px;
+    height: 300px;
+    box-shadow: var(--box-shadow)
+}
+.uv-gauge{
+    height: 300px;
+    padding: 1em;
+    box-shadow: var(--box-shadow)
+}
+.details{
+    margin-top: 1em;
+    display: flex;
+    justify-content: space-between;
+    color: white;
+    font-size: large;
+
+}
+
+
+.progressBar{
+    width: 200px;
+    height: 10px;
+    border: 1px solid rgb(68, 68, 68);
+    margin: 1em 0;
+}
+.d{
+    max-width: 300px;
+    min-width: 200px;
+    padding: 1em;
+    line-height: 2em;
+    box-shadow: var(--box-shadow)
+}
+.d i{
+    margin-right: 10px;
+}
+.d #label{
+    display: inline-block;
+}
+.humidity{
+    line-height: 1em;
+}
+.fl-temp{
+    margin-left: 1.5em;
+}
+.visible-value{
+    margin-left: 1.7em;
+}
+.fill1{
+    height: 10px;
+    width: 80%;
+    background: linear-gradient(to right, #e0ffff, #80e6e6, #00cccc, #008b8b);
+}
+.sunset i{
+    transform: rotate(180deg);
+
+}
+
+#chart-section{
+    width: 100%;
+    padding: 3em;
+    box-shadow: var(--box-shadow);
+}
+#myChart{
+    width: 100%;
+}
+
+#compass {
+    width: 200px;
+    height: 200px;
+  }
+
+  .compass-circle {
+    fill: none;
+    stroke: #333;
+    stroke-width: 3;
+  }
+
+  .primary-needle, .secondary-needle {
+    transform-origin: center;
+    transition: transform 0.5s ease-out;
+  }
+.secondary-needle{
+    transform: rotate(180deg);
+}
+  .primary-needle {
+    fill: gold;
+  }
+.pointers{
+    transform-origin: center;
+}
+#compass:hover .pointers{
+    animation: spin 1s alternate infinite ;
+}
+@keyframes spin {
+    0%{
+        transform: rotate(180deg);
+    }
+    50%{
+        transform: rotate(30deg);
+    }
+    100%{
+        transform: rotate(90deg);
+    }
+}
+  .secondary-needle {
+    fill: rgb(255, 255, 255);
+  }
+
+  .compass-text {
+    font-size: 14px;
+    fill: #ffffff;
+    text-anchor: middle;
+  }

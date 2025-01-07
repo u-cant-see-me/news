@@ -2,8 +2,8 @@
 export default async function loadComponent(elememtName , elementId, callBack){
 
     const components = {
-        "header2" : "/html/header2.html",
-        "sidebar" : "/html/sidebar.html",
+        "header2" : "../pages/templates/header2.html",
+        "sidebar" : "../pages/templates/sidebar.html",
     };
     
     const path = components[elememtName];

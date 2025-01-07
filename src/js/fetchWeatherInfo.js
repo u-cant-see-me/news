@@ -1,4 +1,6 @@
+// import dotenv from 'dotenv'
 import getUserData from './fetchuserdata.js'
+
 
 export default async function getWeather(){
 
@@ -24,5 +26,20 @@ export default async function getWeather(){
     catch(error){
         console.error("there was an error",error);          
     }
+
+}
+
+export async function forecast(){
+    try {
+        const res = await fetch("https://api.openweathermap.org/data/2.5/forecast?q=kanpur&appid=a2847ebdcdfe3330a2ba9240b8998bcd");
+        if(res.ok){
+            const data = res.json();            
+            return data;
+        }
+        
+    } catch (error) {
+        console.log(error);
+    }
+    const data = await res.json();
 
 }

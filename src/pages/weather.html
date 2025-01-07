@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+    integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+    crossorigin=""/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/hamburgers/1.1.3/hamburgers.min.css">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Sansita+Swashed:wght@300..900&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400..700;1,400..700&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Sansita+Swashed:wght@300..900&display=swap" rel="stylesheet">
+    <link href='https://fonts.googleapis.com/css?family=Lobster+Two' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="../css/search.css">
+
+    <link rel="stylesheet" href="../css/header2.css">
+    <link rel="stylesheet" href="../css/sidebar.css">
+    <link rel="stylesheet" href="../css/weather.css">
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <title>News</title>
+</head>
+<body>
+    <div class="overlay">
+        <h1 class="pl-logo"></h1>
+        <div class="box"></div>
+        <div class="box"></div>
+        <div class="box"></div>
+        <div class="box"></div>
+        <div class="box"></div>
+        <div class="box"></div>
+        <div class="box"></div>
+        <div class="box"></div>
+        <div class="box"></div>
+        <div class="box"></div>
+    </div>
+    
+    <div class="page-container">
+        <!-- header -->
+
+        <header class="page-header" id="header">
+
+        </header>
+        <aside id="sidebar">
+
+        </aside>
+        <div class="main-page-container">
+            <div class="weather-section">
+
+                <div class="w-aside-container">
+                    <div class="temp-info">
+                        <div>
+                            <div class="location">
+                                <div id="clipper">
+                                    <p class="city"><i class="fa-solid fa-location-dot"></i>Kanpur</p>
+
+                                </div>
+                                <p class="country">India</p>
+                            </div>
+                            <div class="toggle-container">
+                                <span class="c">°C</span>
+                                    <label class="toggle">
+                                        <input type="checkbox">
+                                        <span class="slider"></span>
+                                    </label>
+                                <span class="f">°F</span>
+                            </div>
+                        </div>
+                        <figure>
+                            <img src="https://openweathermap.org/img/wn/01n@2x.png" alt="" >
+                        </figure>
+                        <p class="temp">
+                            <span class="temperature">14°C</span>
+                            <span class="t-description">Clear Sky</span>
+                        </p>
+                    </div>
+                    <div class="temp-graph-container">
+                        <p>Temperature</p>
+                        <div class="temp-graph">
+                            <canvas id="tempGraph">
+
+                            </canvas>
+                        </div>
+                    </div>
+                </div>
+    
+                <div class="w-details-container">
+                    <div class="searchBar">
+                        <input type="text" name="searchBar" id="search" placeholder="search city">
+                        <button type="submit" class="search-btn">
+                            <i class="fa-solid fa-magnifying-glass" ></i>
+                        </button>
+                    </div>
+                    <div class="wrapper">
+                        <div class="compass">
+                            <svg id="compass" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                                <!-- Outer Circle -->
+                                <circle cx="50" cy="50" r="1" class="compass-circle" />
+                            
+                                <!-- Direction Text -->
+                                <text x="50" y="12" class="compass-text">N</text>
+                                <text x="88" y="54" class="compass-text">E</text>
+                                <text x="50" y="96" class="compass-text">S</text>
+                                <text x="12" y="54" class="compass-text">W</text>
+                                
+                                <g class="pointers">
+                                    <polygon points="50,20 47,50 53,50" class="secondary-needle" />
+                                                                <polygon points="50,20 47,50 53,50" class="primary-needle" />
+                                </g>
+
+                              </svg>
+   
+                              <p class="wind-info">2m/s 180 N/E</p>
+                        </div>
+                        <div class="uv-gauge">
+                            <canvas id="gauge"
+                                    data-type="radial-gauge"
+                                    data-width="250"
+                                    data-height="250"
+                                    data-units="UV Index"
+                                    data-min-value="0"
+                                    data-start-angle="90"
+                                    data-ticks-angle="180"
+                                    data-value-box="false"
+                                    data-max-value="12"
+                                    data-major-ticks="0,2,4,6,8,10,12"
+                                    data-minor-ticks="2"
+                                    data-stroke-ticks="true"
+                                    data-highlights='[
+                                    { "from": 0, "to": 2, "color": "rgba(0,255,0)" },
+                                    { "from": 2, "to": 5, "color": "rgba(255,255,0)" },
+                                    { "from": 5, "to": 7, "color": "rgba(255,165,0)" },
+                                    { "from": 7, "to": 10, "color": "rgba(255,69,0)" },
+                                    { "from": 10, "to": 12, "color": "rgba(255,0,0)" }
+                                  ]'
+                                    data-value="6"
+                                    data-color-plate="transparent"
+                                    data-border-shadow-width="0"
+                                    data-borders="false"
+                                    data-needle-type="arrow"
+                                    data-needle-width="0.5"
+                                    data-needle-circle-size="5"
+                                    data-needle-circle-outer="false"
+                                    data-needle-circle-inner="true"
+                                    data-animation-duration="1500"
+                                    data-animation-rule="linear">
+                                </canvas>
+                        </div>
+                        <div id="map"></div>
+                    </div>
+                    <div class="details">
+                        <div class="d humidity">
+                            <i class="fa-solid fa-droplet"></i>
+                            <p id="label">Humidity</p>
+                            <div class="progressBar">
+                                <div class="fill1"></div>
+                            </div>
+                            <p class="humid-value">80%</p>
+                        </div>
+                        <div class="d feellike">
+                            <i class="fa-solid fa-temperature-three-quarters"></i>                            
+                            <p id="label">feels like</p>
+                            <p class="fl-temp">25C</p>
+                        </div>
+                        <div class="d visibility">
+                            <i class="fa-regular fa-eye"></i>                          
+                            <p id="label">visibility</p>
+                            <p class="visible-value" >8km</p>
+                        </div>
+                        <div class="d sun">
+                            <div class="sunrise">
+                                <i class="fa-solid fa-arrow-up"></i>                                
+                                <p id="label">Sunrise <span>5am</span></p>
+                            </div>
+                            <div class="sunset">
+                                <i class="fa-solid fa-arrow-up"></i>                                
+                                <p id="label">Sunset <span>5pm</span></p>
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+    
+            </div>          
+
+            <div id="chart-section">
+                <canvas id="myChart"></canvas>
+            </div>
+
+        </div>
+        </div>
+       
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/Flip.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollToPlugin.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-gauges/gauge.min.js"></script>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+    integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+    crossorigin=""></script>
+    <script type ="module" src="../js/hamburger.js"> </script>
+
+    <script src="https://kit.fontawesome.com/2ec1488994.js" crossorigin="anonymous"></script>
+    <script type="module" src="../js/weather.js"></script>
+</body>
+</html>
